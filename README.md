@@ -1,35 +1,96 @@
-![Jamendo Logo / Jamendo App Contest repository](http://blog.jamendo.com.s3.amazonaws.com/wp-content/uploads/2012/04/jamendo_logo2.png "Jamendo App Contest 2013")
+Swisher
+-------
+Swisher is a fun way to play music at home.  
+You associate songs with physical cards and then wave them past a pad to play the song.
 
-Jamendo App Contest repository
-==============================
+![Picture of Swisher whiteboard](http://thomasrynne.github.io/swisher/swisher-small.jpg)
 
-The Jamendo App Contest starts 11th April 2013 and ends the 9th June 2013.
+You can see it in use on [this 30s video](http://youtu.be/uHGl409gA08).
 
-You must use the new Jamendo API v3.0 (http://api.jamendo.com/v3.0) to create your app! The v3.0 documentation can be found on this page: http://developer.jamendo.com/v3.0 .
+Hardware Requirements
+---------------------
+- To use it you need a 'driverless USB RFID 125khz reader' and some 125khz RFID cards
+- It costs about £20 ($30) in total for a reader and 30 cards (postage can be quite slow and the price for the cards is very variable) 
+- You also need a PC and speakers
+- It was created with a [Raspberry Pi](http://www.raspberrypi.org) in mind but any Linux PC will do
 
-To participate in the contest and get started, follow these steps: 
----------------------------------------------------------------------
+Software Dependencies
+---------------------
+- MPD/Mopidy - Swisher is an [mpd](http://mpd.wikia.com) client so you need a working mpd installation first. It also works with [Mopidy](http://www.mopidy.com/) an alternative mpd server which plays music from multiple sources.
+- evdev - a linux kernel module which is usually already present
+   (check you have the directory /dev/input)
 
-1. Fork this GitHub repository https://github.com/jamendo/jamendo-contest to your individual or team organization account.
-2. Read our contest guidelines http://developer.jamendo.com/contest/guidelines to be sure you understand what the contest is about.
-3. Read the contest rules http://developer.jamendo.com/contest/rules carefully.
-4. Go to http://developer.jamendo.com/contest/register and register yourself or your team to the Jamendo App Contest.
-5. Go to https://devportal.jamendo.com/ and sign up for a Jamendo API account.
-6. Create a configuration file in your repository, for example "jamendo_api_credentials.conf", then add the path to that configuration in your .gitignore file.
-7. Put the values "Client ID" and "Client Secret" you got when signing up for a Jamendo API account into the configuration file.
-8. Add a License.txt to your project containing an opensource license of your choice.
+Installing
+----------
+    > sudo apt-get install python-dev python-setuptools
+    > git clone https://github.com/thomasrynne/swisher.git
+    > cd swisher
+    > python setup.py install
+    > swisher
 
-Before the end of the contest:
-------------------------------
+ Go to http://localhost:3344 with a browser and you should see the swisher web page
 
-1. Add a description of your application into your README.md. You can format it using GitHub-flavored Markdown https://help.github.com/articles/github-flavored-markdown.
-2. Include one or more Screenshots of your application into your README.md using GitHub-flavored Markdown.
-3. Create a "final" tag and push your final code to it (http://gitref.org/branching/#tag), before the 9th June 2013 at midnight UTC+2.
+Using
+-----
+ The swisher webpage lets you search for tracks and albums and lists some radio stations. Search for a song and press play first to check that playing is working.
+ 
+ To associate cards with songs you press the zigzag button of the song and then
+ swipe the card. After that swiping the card should play the song.
 
-The Jamendo App Contest is Copyright (c) 2013 Jamendo, released under the MIT License.
+ As well as songs, 'actions' can be associated with cards so you can make
+ cards for stop/next/previous... See the /Actions page
 
-Sponsored by:
+The Cards
+---------
+ There are many ways to use the physical cards. Here are some suggestions:
 
-<img src="http://www.3scale.net/wp-content/uploads/2012/03/logo-3scale.png" height="60">
+- Stack of cards with song names written on sticky labels on the card
+- Stick pictures on the cards (for example album covers)
+- Put magnets on the card and keep the cards on a fridge or magnetic whiteboard
+ - You can also bend the end of the cards in very hot water 
+    which makes it easier to take them of the whiteboard
+ - Magnets intended for shower doors are cheap and the right strength
+- Cut round the antenna to make the cards smaller and stick them to toys
+ - Hold the card against a bright light to see where the antenna is
+ - Don't cut off the RFID chip which is usually a dot just outside the
+   round antenna
 
-<img src="https://a248.e.akamai.net/assets.github.com/images/modules/logos_page/GitHub-Logo.png?1361400666" height="60">
+- You can also get keyring RFID tags. I have not tried these yet.
+
+Please experiment yourself and let me know what works.
+
+Optional  Configuration
+-----------------------
+
+ Driverless RFID readers behave like a usb keyboard and simulate typing
+ in the card number when a card is waved as if it was entered through a keyboard.
+ This means numbers get entered in the active terminal.
+
+ If you want to suppress this you can tell swisher which
+ device is the rfid reader and it will grab and suppress the fake
+ key presses.
+
+ Run "swisher --list-devices" before and after plugging in the USB RFID reader
+ to see the name of your RFID reader. Then use 
+  the --grab-device argument or specify grab-device: 'name' in /etc/swisher.conf
+  if you are using the init script (see below)
+
+ By default swisher connects to mpd on localhost 6600
+ You can change this with the mpd-host and mpd-port properties
+ 
+ By default the swisher web server listens on 3344
+ You can change this with the http-port property
+
+### Start on Boot
+
+    > sudo cp misc/init.d.swisher /etc/init.d/swisher
+    > sudo cp misc/swisher.conf /etc
+    > sudo update-rc.d swisher defaults
+
+### Jamendo
+
+ [Jamendo](http://www.jamendo.com) hosts free music for personal use.
+ If you set the value jamendo-username: in the configuration file
+ Jamendo pages are added to the swisher web page. You can 
+ use these pages to associate cards with tracks on Jamendo.
+

@@ -1,0 +1,19 @@
+<%inherit file="base.html"/>
+
+<div id="cards">
+  <span id="jamendo-download"></span>
+
+  % for key, downloaded, trackid, name in jam.mytracks:
+   % if downloaded: 
+    <div>
+        <input type="button" value="&#x25B6;" title="Play now" onclick="action('track', '${key}')"/>
+        <input type="button" class="rotate" value="&#x21af;" title="Record" onclick="record('track', '${key}')"/>
+        ${name}</div>
+   % else:
+    <div>
+        <input type="button" value="Download" title="Play now" onclick="download('${trackid}')"/>
+        ${name}</div>
+   % endif 
+  % endfor %
+</ul>
+
