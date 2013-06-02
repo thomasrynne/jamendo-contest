@@ -7,6 +7,8 @@ You associate songs with physical cards and then wave them past a pad to play th
 
 You can see it in use on [this 30s video](http://youtu.be/uHGl409gA08).
 
+It can play local files and tracks or albums on Jamendo.
+
 Hardware Requirements
 ---------------------
 - To use it you need a 'driverless USB RFID 125khz reader' and some 125khz RFID cards
@@ -18,7 +20,7 @@ Software Dependencies
 ---------------------
 - MPD/Mopidy - Swisher is an [mpd](http://mpd.wikia.com) client so you need a working mpd installation first. It also works with [Mopidy](http://www.mopidy.com/) an alternative mpd server which plays music from multiple sources.
 - evdev - a linux kernel module which is usually already present
-   (check you have the directory /dev/input)
+   (check you have the directory /dev/input and read permissions)
 
 Installing
 ----------
@@ -90,7 +92,13 @@ Optional  Configuration
 ### Jamendo
 
  [Jamendo](http://www.jamendo.com) hosts free music for personal use.
- If you set the value jamendo-username: in the configuration file
- Jamendo pages are added to the swisher web page. You can 
- use these pages to associate cards with tracks on Jamendo.
+ If you set the values jamendo-username: [username] and jamendo-clientid: [clientid] in the configuration file the following pages are added: 
+
+- Jamendo Search: lets you search jamendo tracks and albums by title
+- Jamendo Radio: lists the Jamendo radio stations
+- Jamendo Likes: lists your favourite and liked tracks
+
+Using these pages you can associate Jamendo tracks,albums and radio stations with cards. Here is a screenshot of the radios page:
+
+![Screenshot of jamendo radio page](https://raw.github.com/thomasrynne/jamendo-contest/master/screenshots/jamendo-radio.png)
 

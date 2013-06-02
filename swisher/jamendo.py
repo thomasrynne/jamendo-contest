@@ -7,8 +7,8 @@ import urllib
 #Adds actions for the Jamendo radio stations and tracks
 #Adds pages for search, Jamendo Radios and user's likes
 class Jamendo:
-    def __init__(self, player, actions, username):
-        self.clientID = "6154a905"
+    def __init__(self, player, actions, clientID, username):
+        self.clientID = clientID
         self.username = username
         self.player = player
         actions.register("jamendo-radio", self.play_radio)

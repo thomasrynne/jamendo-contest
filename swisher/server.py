@@ -15,9 +15,9 @@ import printer
 import jamendo
 
 class Server:
-    def __init__(self, resources_path, cardsfile, log, grab_device, mpdhost, mpdport, http_port, jamendo_username):
+    def __init__(self, resources_path, cardsfile, log, grab_device, mpdhost, mpdport, http_port, jamendo_clientid, jamendo_username):
         self.notifier = notifier.Notifier()
-        self.card_store = cards.CardStore(cardsfile, True)
+        self.card_store = cards.CardStore(cardsfile, False)
         self.actions = actions.Actions()
         self.card_manager = cardmanager.CardManager(self.card_store, self.actions, self.notifier.notify)
         self.card_reader = cardreader.CardReader(
@@ -28,7 +28,7 @@ class Server:
         self.mpdplayer = mpdplayer.MpdPlayer(mpdhost, mpdport, self.actions, self.notifier.notify)
         self.mpdsource = mpdsource.MpdSource(self.actions, self.mpdplayer.client)
         radios = radiosource.RadioSource(self.actions, self.mpdplayer)
-        self.jamendo = jamendo.Jamendo(self.mpdplayer, self.actions, jamendo_username)
+        self.jamendo = jamendo.Jamendo(self.mpdplayer, self.actions, jamendo_clientid, jamendo_username)
         self.shell = shell.Shell(self.actions)
 
         pages = [
@@ -38,7 +38,7 @@ class Server:
             ("Actions", lambda c: actions.ActionsPage(c, self.actions)),
             ("CardPrinter", lambda c: printer.CardPrinterPage(c))
         ]
-        if jamendo_username:
+        if jamendo_clientid:
             pages = pages + [
                 ("Jamendo Search", lambda c: jamendo.SearchPage(c, self.jamendo)),
                 ("Jamendo Radio", lambda c: jamendo.RadioPage(c, self.jamendo)),
