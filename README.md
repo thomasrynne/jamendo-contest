@@ -1,8 +1,5 @@
 <h1>Swisher</h1>
 
-<img src="https://raw.github.com/thomasrynne/jamendo-contest/master/swisher/assets/whiteboard.jpg" width="300em" style="border: solid 2px black; margin-left: 1em; margin-right: 3em; float: left"/>
-<img src="https://raw.github.com/thomasrynne/jamendo-contest/master/swisher/assets/rfid-reader.jpg" width="150em" style="border: solid 2px black; margin-left: 1em; margin-right: 1em; float: right"/>
-
 <ul>
   <li>Swisher is a fun way to play music at home</li>
   <li>You associate songs with physical cards and then wave them past a pad to play the song</li>
@@ -11,6 +8,9 @@
   <li>It costs about £20 ($30) in total for a reader and 30 cards
    (postage can be quite slow and the price for the cards is very variable)</li>
 </ul>
+
+<img src="https://raw.github.com/thomasrynne/jamendo-contest/master/swisher/assets/whiteboard.jpg" width="300em" style="border: solid 2px black; margin-left: 1em; margin-right: 3em; float: left"/>
+<img src="https://raw.github.com/thomasrynne/jamendo-contest/master/swisher/assets/rfid-reader.jpg" width="150em" style="border: solid 2px black; margin-left: 1em; margin-right: 1em; float: right"/>
 
 <p>There are two versions. <a href="http://swisher.herokuapp.com">Swisher-Web</a> and Swisher-Box which you install</p>
 <div>
