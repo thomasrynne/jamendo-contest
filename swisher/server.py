@@ -15,9 +15,10 @@ import printer
 import jamendo
 
 class Server:
-    def __init__(self, resources_path, cardsfile, log, grab_device, mpdhost, mpdport, http_port, jamendo_clientid, jamendo_username):
+    def __init__(self, resources_path, cardsfile, log, grab_device, mpdhost, mpdport,
+      http_port, jamendo_clientid, jamendo_username, use_cardservice):
         self.notifier = notifier.Notifier()
-        self.card_store = cards.CardStore(cardsfile, True)
+        self.card_store = cards.CardStore(cardsfile, use_cardservice)
         self.actions = actions.Actions()
         self.card_manager = cardmanager.CardManager(self.card_store, self.actions, self.notifier.notify)
         self.card_reader = cardreader.CardReader(

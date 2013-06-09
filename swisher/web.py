@@ -66,7 +66,7 @@ class WebContext:
     def __init__(self, template, scripts):
         self._template = template
         self._scripts = scripts
-        self._pages = []
+        self._pages = [ "Home" ]
     def render(self, template_name, title, **others):
         t = self.get_template(template_name)
         return t.render(title=title, tabs=self.tabs(), scripts=self._scripts, **others)

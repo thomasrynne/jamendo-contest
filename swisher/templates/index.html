@@ -1,2 +1,53 @@
+## -*- coding: utf-8 -*-
+
 <%inherit file="base.html"/>
 
+<img src="/assets/whiteboard.jpg" width="300em" style="border: solid 2px black; margin-left: 1em; margin-right: 3em; float: left"/>
+<img src="/assets/rfid-reader.jpg" width="150em" style="border: solid 2px black; margin-left: 1em; margin-right: 1em; float: right"/>
+
+<ul>
+  <li>Swisher is a fun way to play music at home</li>
+  <li>You associate songs with physical cards and then wave them past a pad to play the song</li>
+  <li>There is a demonstration video <a href="http://youtu.be/6y7gLkIasRE">here</a> (you might need to turn up your volume)</li>
+  <li>To use it you need a 'driverless USB RFID 125khz reader' and some 125khz RFID cards</li>
+  <li>It costs about £20 ($30) in total for a reader and 30 cards
+   (postage can be quite slow and the price for the cards is very variable)</li>
+</ul>
+
+<p>There are two versions. Swisher-web which you are using now and Swisher-box which you install</p>
+<div>
+ <div style="float: left; margin-left: 4em; border: solid 1px black; width: 20em; padding: 5px">
+   <h3>Swisher-Box</h3>
+    <ul>
+     <li>Runs on Linux (including a <a href="http://en.wikipedia.org/wiki/Raspberry_Pi">Raspberry Pi</a>)</li>
+     <li>You need to install Mpd/Mopidy and Swisher</li>
+     <li>Plays your mp3s and Jamendo tracks/albums/radio</li>
+     <li>Cards always work</li>
+    </ul>
+    Swisher-Box looks just like this site, but has extra pages for local tracks.
+ </div>
+
+ <div style="float: right; margin-right: 4em; border: solid 1px black; width: 20em; padding: 5px">
+   <h3>Swisher-Web</h3>
+    <ul>
+     <li>Runs on anything with a modern browser and a usb port</li>
+     <li>No installation required</li>
+     <li>Only plays Jamendo tracks/albums/radio</li>
+     <li>Cards only work when a 'swisher.herokuapp.com' page is at the front and has focus</li>
+    </ul>
+ </div>
+
+ <div style="clear: both"></div>
+
+ <div style="margin-left: 3em; margin-bottom: 3em">
+  <h2>Trying it out without a reader</h2>
+  <p>The USB reader acts as a keyboard so you can try this site out by entering a 7 digit number yourself</p>
+  <ol>
+    <li>Search for a track with Jamendo search or view your Likes/Favourites with the likes page</li>
+    <li>Press the <span class="rotate">&#x21af;</span> next to the track/album</li>
+    <li>The Card Reader at the top will display 'Recording ...'</li>
+    <li>Enter a 7 digit number (eg 1234567) or wave a card if you have a reader</li>
+    <li>Now whenever you (or anyone else) waves that card (or enters that number) your track will play</li>
+  </ol>
+ </div>
+</div>

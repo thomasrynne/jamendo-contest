@@ -15,6 +15,7 @@ class JamendoActionsPage: #hard coded with the actions supported by the web play
   @cherrypy.expose
   def index(self):
     return self.context.render("actions.html","Actions", actions=self._actions)
+  
 def start():
   current_dir = os.path.dirname(os.path.abspath(__file__))
   port = int(os.environ.get('PORT', '5000'))
