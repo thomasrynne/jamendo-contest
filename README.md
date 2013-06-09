@@ -1,24 +1,54 @@
-Swisher
--------
-Swisher is a fun way to play music at home.  
-You associate songs with physical cards and then wave them past a pad to play the song.
+<h1>Swisher</h1>
 
-![Picture of Swisher whiteboard](http://thomasrynne.github.io/swisher/swisher-small.jpg)
+<img src="https://raw.github.com/thomasrynne/jamendo-contest/master/swisher/assets/whiteboard.jpg" width="300em" style="border: solid 2px black; margin-left: 1em; margin-right: 3em; float: left"/>
+<img src="https://raw.github.com/thomasrynne/jamendo-contest/master/swisher/assets/rfid-reader.jpg" width="150em" style="border: solid 2px black; margin-left: 1em; margin-right: 1em; float: right"/>
 
-You can see it in use on [this 30s video](http://youtu.be/uHGl409gA08).
+<ul>
+  <li>Swisher is a fun way to play music at home</li>
+  <li>You associate songs with physical cards and then wave them past a pad to play the song</li>
+  <li>There is a demonstration video <a href="http://youtu.be/6y7gLkIasRE">here</a> (you might need to turn up your volume)</li>
+  <li>To use it you need a 'driverless USB RFID 125khz reader' and some 125khz RFID cards</li>
+  <li>It costs about £20 ($30) in total for a reader and 30 cards
+   (postage can be quite slow and the price for the cards is very variable)</li>
+</ul>
 
-It can play local files and tracks or albums on Jamendo.
+<p>There are two versions. <a href="http://swisher.herokuapp.com">Swisher-Web</a> and Swisher-Box which you install</p>
+<div>
+ <div style="float: left; margin-left: 4em; border: solid 1px black; width: 20em; padding: 5px">
+   <h3>Swisher-Box</h3>
+    <ul>
+     <li>Runs on Linux (including a <a href="http://en.wikipedia.org/wiki/Raspberry_Pi">Raspberry Pi</a>)</li>
+     <li>You need to install Mpd/Mopidy and Swisher</li>
+     <li>Plays your mp3s and Jamendo tracks/albums/radio</li>
+     <li>Cards always work</li>
+    </ul>
+ </div>
 
-Hardware Requirements
+ <div style="float: right; margin-right: 4em; border: solid 1px black; width: 20em; padding: 5px">
+   <h3>Swisher-Web</h3>
+    <ul>
+     <li>Runs on anything with a modern browser and a usb port</li>
+     <li>No installation required</li>
+     <li>Only plays Jamendo tracks/albums/radio</li>
+     <li>Cards only work when a 'swisher.herokuapp.com' page is at the front and has focus</li>
+    </ul>
+ </div>
+
+ <div style="clear: both"></div>
+
+<h1>Swisher-Box</h1>
+
+Here are the instructions on installing swisher-box.
+
+ Hardware Requirements
 ---------------------
-- To use it you need a 'driverless USB RFID 125khz reader' and some 125khz RFID cards
-- It costs about £20 ($30) in total for a reader and 30 cards (postage can be quite slow and the price for the cards is very variable) 
+- An RFID card reader (described above)
 - You also need a PC and speakers
 - It was created with a [Raspberry Pi](http://www.raspberrypi.org) in mind but any Linux PC will do
 
 Software Dependencies
 ---------------------
-- MPD/Mopidy - Swisher is an [mpd](http://mpd.wikia.com) client so you need a working mpd installation first. It also works with [Mopidy](http://www.mopidy.com/) an alternative mpd server which plays music from multiple sources.
+- MPD/Mopidy - Swisher-Box is an [mpd](http://mpd.wikia.com) client so you need a working mpd installation first. It also works with [Mopidy](http://www.mopidy.com/) an alternative mpd server which plays music from multiple sources.
 - evdev - a linux kernel module which is usually already present
    (check you have the directory /dev/input and read permissions)
 
@@ -64,6 +94,21 @@ Please experiment yourself and let me know what works.
 Optional  Configuration
 -----------------------
 
+### Jamendo
+
+ [Jamendo](http://www.jamendo.com) hosts free music for personal use.
+ If you set the values jamendo-username: [username] and jamendo-clientid: [clientid] in the configuration file the following pages are added: 
+
+- Jamendo Search: lets you search jamendo tracks and albums by title
+- Jamendo Radio: lists the Jamendo radio stations
+- Jamendo Likes: lists your favourite and liked tracks
+
+Using these pages you can associate Jamendo tracks,albums and radio stations with cards. Here is a screenshot of the radios page:
+
+![Screenshot of jamendo radio page](https://raw.github.com/thomasrynne/jamendo-contest/master/screenshots/jamendo-radio.png)
+
+### Specify the reader
+
  Driverless RFID readers behave like a usb keyboard and simulate typing
  in the card number when a card is waved as if it was entered through a keyboard.
  This means numbers get entered in the active terminal.
@@ -88,17 +133,4 @@ Optional  Configuration
     > sudo cp misc/init.d.swisher /etc/init.d/swisher
     > sudo cp misc/swisher.conf /etc
     > sudo update-rc.d swisher defaults
-
-### Jamendo
-
- [Jamendo](http://www.jamendo.com) hosts free music for personal use.
- If you set the values jamendo-username: [username] and jamendo-clientid: [clientid] in the configuration file the following pages are added: 
-
-- Jamendo Search: lets you search jamendo tracks and albums by title
-- Jamendo Radio: lists the Jamendo radio stations
-- Jamendo Likes: lists your favourite and liked tracks
-
-Using these pages you can associate Jamendo tracks,albums and radio stations with cards. Here is a screenshot of the radios page:
-
-![Screenshot of jamendo radio page](https://raw.github.com/thomasrynne/jamendo-contest/master/screenshots/jamendo-radio.png)
 
