@@ -4,3 +4,14 @@
 5555555=radio:bbc5
 9999999=jamendo-radio:pop
 1111111=jamendo-track:1000079
+5555567=action:mpd.stop
+2645549=jamendo-radio:pop
+9456892=jamendo-radio:songwriting
+9475837=jamendo-track:1000079
+8846819=jamendo-album:119818
+8846819=jamendo-album:119818
+7283945=action:mpd.stop
+7421910=action:mpd.next
+7430932=album:Don McLean/American Pie
+7251484=track:Children/Wiggles-Toot_toot_chugga_chugga_Big_red_car.mp3
+2154467=jamendo-album:87917

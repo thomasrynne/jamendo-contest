@@ -10,33 +10,11 @@ function cancelRecord() {
   jQuery.post("/action/cancelrecord")
 }
 
-function addListener(elem, callback) {
-  elem.data('oldVal', elem.val());
-  elem.bind("propertychange keyup input paste", function(event) {
-    if (elem.data('oldVal') != elem.val()) {
-      elem.data('oldVal', elem.val());
-      callback(elem.val())
-    }
-  })
-}
-var hostname = window.location.hostname
-if (window.location.port != "") {
-    hostname = hostname + ":" + window.location.port
-}
-
-var current = {}
-reconnectInterval = 1
 function showDisconnected() {
     $('#status').html("Disconnected.")
     $.each(current, function(key, value ) {
         $("#"+key).html("--")
     })
-}
-function startLongPoll(keys) {
-    $.each(keys, function(i, key) {
-      current[key]= ""
-    })
-    longPoll()
 }
 function longPoll() {
     $.ajax({
@@ -71,5 +49,13 @@ function longPoll() {
         }
     });
 }
+var hostname = window.location.hostname
+if (window.location.port != "") {
+    hostname = hostname + ":" + window.location.port
+}
+
+var current = { "mpd":"", "player":"" }
+reconnectInterval = 1
+longPoll()
 
 

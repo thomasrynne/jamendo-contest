@@ -17,7 +17,7 @@ import jamendo
 class Server:
     def __init__(self, resources_path, cardsfile, log, grab_device, mpdhost, mpdport, http_port, jamendo_clientid, jamendo_username):
         self.notifier = notifier.Notifier()
-        self.card_store = cards.CardStore(cardsfile, False)
+        self.card_store = cards.CardStore(cardsfile, True)
         self.actions = actions.Actions()
         self.card_manager = cardmanager.CardManager(self.card_store, self.actions, self.notifier.notify)
         self.card_reader = cardreader.CardReader(
@@ -28,24 +28,28 @@ class Server:
         self.mpdplayer = mpdplayer.MpdPlayer(mpdhost, mpdport, self.actions, self.notifier.notify)
         self.mpdsource = mpdsource.MpdSource(self.actions, self.mpdplayer.client)
         radios = radiosource.RadioSource(self.actions, self.mpdplayer)
-        self.jamendo = jamendo.Jamendo(self.mpdplayer, self.actions, jamendo_clientid, jamendo_username)
         self.shell = shell.Shell(self.actions)
 
         pages = [
-            ("Cards", lambda c: web.CardsPage(c, self.card_store, self.actions)),
+            ("Cards", lambda c: web.CardsPage(c, self.card_store)),
             ("Mpd", lambda c: mpdsource.SearchPage(c, self.mpdsource)),
             ("Radio", lambda c: radiosource.RadioPage(c, radios)),
             ("Actions", lambda c: actions.ActionsPage(c, self.actions)),
             ("CardPrinter", lambda c: printer.CardPrinterPage(c))
         ]
         if jamendo_clientid:
+            jamapi = jamendo.JamendoApi(jamendo_clientid)
+            handler = jamendo.JamendoActionHandler(self.mpdplayer, self.actions, jamapi)
             pages = pages + [
-                ("Jamendo Search", lambda c: jamendo.SearchPage(c, self.jamendo)),
-                ("Jamendo Radio", lambda c: jamendo.RadioPage(c, self.jamendo)),
-                ("Jamendo Likes", lambda c: jamendo.LikesPage(c, self.jamendo)),
+                ("Jamendo Search", lambda c: jamendo.SearchPage(c, jamapi)),
+                ("Jamendo Radio", lambda c: jamendo.RadioPage(c, jamapi)),
+                ("Jamendo Likes", lambda c: jamendo.LikesPage(c, jamapi, jamendo_username)),
             ]
-        self.web = web.Web(resources_path, log, http_port,
-          self.actions, self.card_store, self.card_manager, self.notifier, pages)
+        self.web = web.Web(resources_path, log, http_port, ["box-functions.js"], pages)
+        self.web.root.longPoll = web.LongPollStatus(self.notifier)
+        self.web.root.action = web.ActionPage(self.actions, self.card_manager)
+        self.web.root.action.exposed = True
+
     def start(self):
         self.mpdplayer.start()
         self.card_reader.start()
